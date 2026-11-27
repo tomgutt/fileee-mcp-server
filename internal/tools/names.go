@@ -65,6 +65,10 @@ const (
 	ToolListReviewDocuments = "list_review_documents"
 	// ToolGetDocumentReview returns selected extracted metadata for one document.
 	ToolGetDocumentReview = "get_document_review"
+	// ToolPatchDocumentMetadata updates selected metadata on one document.
+	ToolPatchDocumentMetadata = "patch_document_metadata"
+	// ToolSetDocumentArchived changes a document’s archive state.
+	ToolSetDocumentArchived = "set_document_archived"
 
 	ToolListContacts      = "list_contacts"
 	ToolGetContact        = "get_contact"
