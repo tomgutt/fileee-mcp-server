@@ -9,11 +9,11 @@ Benutzer (Always allow / Needs approval / Blocked), nicht der Server. Details un
 [ADR-0018](adr/0018-werkzeug-freigabe-und-client-steuerung.md) (löst
 [ADR-0011](adr/0011-capability-gating.md)s serverseitiges Capability-Gating ab).
 
-Der heutige Stand: **34 lesende fileee-Werkzeuge** (unten nach Sachgebiet gruppiert) plus **8
+Der heutige Stand: **34 lesende fileee-Werkzeuge** (unten nach Sachgebiet gruppiert) plus **10
 schreibende fileee-Werkzeuge** (eigener Abschnitt weiter unten, ebenfalls nach Sachgebiet
 gruppiert) plus **4 operative Werkzeuge**, die keine Fileee-Daten berühren (`get_runtime_stats`,
 `get_tool_manifest`, `self_check`, `whoami`; siehe deren eigene Beschreibung im Code, nicht Teil
-einer der beiden Gruppierungen nach Sachgebiet) — **46 Werkzeuge** insgesamt. Jede Zusammenfassung
+einer der beiden Gruppierungen nach Sachgebiet) — **48 Werkzeuge** insgesamt. Jede Zusammenfassung
 fasst die Beschreibung zusammen, die das jeweilige Werkzeug selbst im Code trägt (die eigentliche
 Quelle) — sie erfindet nichts Neues. Teilende und löschende Werkzeuge existieren noch nicht und
 entstehen in künftigen Umsetzungsschritten (siehe README, Abschnitt „Werkzeuge").
@@ -207,6 +207,8 @@ Schritt).
 | Werkzeug | Hinweise | Was es tut und was nicht |
 |---|---|---|
 | `upload_document` | destructive: nein · idempotent: nein | Lädt ein neues Dokument hoch. Pass `title` und `contentBase64` (beide Pflicht) — `contentBase64` sind die rohen Dateibytes, base64-kodiert (MCP-Aufrufe sind textbasiert). Gibt die neue Dokument-ID zurück. Erkennt der Server den Inhalt als bereits vorhandenes Dokument, wird das als `isDuplicate: true` mit der ID des BESTEHENDEN Dokuments gemeldet — kein Fehler; `isDuplicate` prüfen statt anzunehmen, dass jeder erfolgreiche Aufruf ein neues Dokument erzeugt hat. Wird abgelehnt, wenn der dekodierte Inhalt das konfigurierte Upload-Größenlimit (`FILEEE_MAX_UPLOAD_BYTES`) überschreitet — bereits anhand der kodierten Länge, bevor überhaupt dekodiert wird. Gibt **keinen** Titel zurück (siehe Tabelle „KEINEN fremdbestimmten Text" oben) — dafür anschließend `get_document`/`list_documents` nutzen. |
+| `patch_document_metadata` | destructive: ja · idempotent: ja | Ändert nur die gelieferten Felder. `expectedModified` muss dem zuletzt geprüften Stand entsprechen. `null` löscht einen Wert; zusammengesetzte Felder werden feldweise aktualisiert. |
+| `set_document_archived` | destructive: ja · idempotent: ja | Setzt den Archivzustand für ein Dokument. `expectedModified` schützt vor veralteten Clientdaten. Vorhandene Aufgaben bleiben mit dem Dokument verbunden. |
 | `update_document` | destructive: ja · idempotent: ja | Patch/Merge, aber ausschließlich für den Titel: `title` übergeben, um ihn zu ändern, weglassen, um ihn unverändert zu lassen. Gibt Dokument-ID und Titel (neu gesetzt oder unverändert) gerahmt zurück. Erst `list_documents`/`search_documents` oder `get_document` nutzen, um die ID zu finden. Legt **kein** neues Dokument an, und ändert **ausschließlich** den Titel — andere Dokumentfelder unterstützt dieses Werkzeug nicht. |
 
 ## Wie fremdbestimmter Text gerahmt wird

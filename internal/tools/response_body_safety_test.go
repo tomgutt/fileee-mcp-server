@@ -33,8 +33,8 @@
 // 2026-08-14) confirmed this by hand across all tools registered at the
 // time (35) — found no go-fileee Marshaler type reachable from any
 // response body, directly or transitively. registeredReadTools() mounts
-// 46 tools today (34 fileee-backed read tools, 4 operational tools:
-// get_runtime_stats, get_tool_manifest, self_check, whoami, plus eight
+// 48 tools today (34 fileee-backed read tools, 4 operational tools:
+// get_runtime_stats, get_tool_manifest, self_check, whoami, plus ten
 // write-class tools: update_contact and create_contact (Task
 // 1/2, write.go), create_reminder and update_reminder (Task 3,
 // write_people.go), box_add_document and box_remove_document (Task 4,
@@ -131,6 +131,8 @@ var registeredResponseBodyTypes = []reflect.Type{
 	reflect.TypeOf(updateDocumentOutput{}),                             // update_document
 	reflect.TypeOf(listReviewDocumentsOutput{}),                        // list_review_documents
 	reflect.TypeOf(getDocumentReviewOutput{}),                          // get_document_review
+	reflect.TypeOf(reviewMutationOutput{}),                             // patch_document_metadata
+	reflect.TypeOf(reviewMutationOutput{}),                             // set_document_archived
 }
 
 // jsonMarshalerType is the reflect.Type of the standard library's

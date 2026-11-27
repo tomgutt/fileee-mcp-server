@@ -330,7 +330,7 @@ var knownNonEntityReadTools = map[string]bool{
 	tools.ToolGetAccountStatus: true,
 }
 
-// knownWriteTools sind die acht heute gemounteten Schreib-Werkzeuge
+// knownWriteTools enthält die gemounteten Schreib-Werkzeuge
 // (write.go: update_contact/create_contact; write_people.go:
 // create_reminder/update_reminder; write_boxes.go:
 // box_add_document/box_remove_document; write_documents.go:
@@ -355,14 +355,16 @@ var knownNonEntityReadTools = map[string]bool{
 // handWrittenReadTools-artige Prüfungen überführt, nicht länger nur
 // zugelassen.
 var knownWriteTools = map[string]bool{
-	tools.ToolUpdateContact:     true,
-	tools.ToolCreateContact:     true,
-	tools.ToolCreateReminder:    true,
-	tools.ToolUpdateReminder:    true,
-	tools.ToolBoxAddDocument:    true,
-	tools.ToolBoxRemoveDocument: true,
-	tools.ToolUploadDocument:    true,
-	tools.ToolUpdateDocument:    true,
+	tools.ToolUpdateContact:         true,
+	tools.ToolCreateContact:         true,
+	tools.ToolCreateReminder:        true,
+	tools.ToolUpdateReminder:        true,
+	tools.ToolBoxAddDocument:        true,
+	tools.ToolBoxRemoveDocument:     true,
+	tools.ToolUploadDocument:        true,
+	tools.ToolUpdateDocument:        true,
+	tools.ToolPatchDocumentMetadata: true,
+	tools.ToolSetDocumentArchived:   true,
 }
 
 // newCoverageSession mountet den echten, mit RegisterAll angemeldeten

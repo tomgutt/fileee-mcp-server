@@ -2,10 +2,10 @@
 // only entry point today — it mounts this server's full read/write/meta
 // tool set: 34 fileee-backed read tools (documents, reference data,
 // people data) plus 4 operational tools that never touch Fileee data at
-// all (get_runtime_stats, get_tool_manifest, self_check, whoami) plus 8
+// all (get_runtime_stats, get_tool_manifest, self_check, whoami) plus 10
 // fileee-backed write tools (create/update contact, create/update reminder,
 // box add/remove document, upload/update document) —
-// 46 tools total (registeredReadTools() in names.go is the live count;
+// 48 tools total (registeredReadTools() in names.go is the live count;
 // its name predates write.go and it counts every mounted tool, not only
 // read ones — see its own doc comment). Every Fileee-backed handler
 // resolves its own connection through a clientpool.Pool, keyed to the
@@ -187,6 +187,7 @@ func RegisterAll(s *mcp.Server, p *clientpool.Pool, info ServerInfo, logger *slo
 	// info.MaxUploadBytes to enforce the configured upload size limit.
 	registerReviewReadTools(s, p, logger, rec)
 	registerWriteTools(s, p, info, logger)
+	registerReviewWriteTools(s, p, logger)
 }
 
 // clientFor resolves the Fileee client for whoever is making the current

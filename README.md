@@ -142,9 +142,9 @@ Kontaktnamen, Erinnerungstexte, Konversationsbetreffs, erkannter OCR-Text).
 
 `list_review_documents` zeigt Dashboard oder Archiv. Mit `get_document_review` lassen sich erkannte Dokumentfelder gezielt vor einer Korrektur prüfen.
 
-Die schreibenden Werkzeuge sind ebenfalls vollständig angemeldet — **8 Werkzeuge** über Kontakte
+Die schreibenden Werkzeuge sind ebenfalls vollständig angemeldet — **10 Werkzeuge** über Kontakte
 (`create_contact`/`update_contact`), Erinnerungen (`create_reminder`/`update_reminder`), Boxen
-(`box_add_document`/`box_remove_document`) und Dokumente (`upload_document`/`update_document`),
+(`box_add_document`/`box_remove_document`) und Dokumente (`upload_document`/`update_document`, `patch_document_metadata`, `set_document_archived`),
 jedes mit wahrheitsgemäßen `ToolAnnotations` (`destructiveHint`, `idempotentHint`) — ebenfalls
 vollständig in [`docs/tools.md`](docs/tools.md) dokumentiert, im Abschnitt „`write` — schreibende
 Werkzeuge".
